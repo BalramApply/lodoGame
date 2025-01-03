@@ -387,23 +387,20 @@ align-items: center;
 gap:20px;
 
 }
-.gameover{
-    width:100vw;
+.gameover {
+    width: 100vw;
     height: 100vh;
-    z-index:+999;
-    position:absolute;
-    /* From https://css.glass */
-background: rgba(0, 0, 0, 0.29);
-
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(7.3px);
--webkit-backdrop-filter: blur(7.3px);
-display: flex;
-justify-content: center;
-align-items: center;
-/* display: none; */
-
-}
+    z-index: 999;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.29);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7.3px);
+    -webkit-backdrop-filter: blur(7.3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
 
 .welcome{
     overflow: hidden;

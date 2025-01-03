@@ -31,8 +31,8 @@ var winner_sound = new Audio('assets/audio/winner.mp3');
 
 
 var safe_stops = [19, 6, 5, 27, 52, 65, 66, 44];
-var hold_time = 350;
-var move_time = 300;
+var hold_time = 150;
+var move_time = 100;
 
 var names = {
     red_player_name: null,
@@ -689,36 +689,40 @@ function movePlayer(M_Player, M_Step, M_Road) {
         if (rank_count > (turn_oder.length - 2)) {
             //console.log("game finished");
             deactivateDice();
+            let winnerFound = false;
             for (i = 0; i < turn_oder.length; i++) {
-                if (getWinPlayers(turn_oder[i].players[0].home) != 4) {
-                    //console.log(turn_oder[i].group + " is looser");
-                    break;
+              if (getWinPlayers(turn_oder[i].players[0].home) != 4) {
+                // Displaying the winner
+                let pl_rank = turn_oder[i].rank;
+                let pl_name = turn_oder[i].group;
+                pl_name = pl_name.toLowerCase();
+                pl_name = pl_name.charAt(0).toUpperCase() + pl_name.slice(1);
+                
+                // Show the winner's name and crown
+                if (pl_rank == 0) {
+                  $("#r" + (i + 1)).text(pl_name + " Player");
+                  $("#r" + (i + 1)).siblings('.icon2').show();  // Show the crown for the winner
+                } else {
+                  // Label the others as looser
+                  $("#r" + (i + 1)).text(pl_name + " Player");
+                  if (i != 0) {
+                    $("#r" + (i + 1)).siblings().last().text("Looser");
+                  }
                 }
+                winnerFound = true;
+              }
             }
+          
+            // Show game over screen
+            if (winnerFound) {
+              $(".gameover").css("display", "flex");
+            }
+          
             stopTimer();
-            // for(i=0;i<4;i++){
-            //     var pl_rank = turn_oder[i].rank;
-            //     var pl_name = turn_oder[i].group;
-            //     pl_name = pl_name.toLowerCase();
-            //     pl_name=pl_name.charAt(0).toUpperCase()+pl_name.slice(1);
-
-
-            //     if(pl_rank==0){
-            //      $("#r"+i).text(pl_name+" Player");
-            //      var pllogo = $("#r4").parent().children()[0];
-            //      $(pllogo).addClass("bg-"+pl_name.toLowerCase());
-
-            //     }
-
-
-
-
-            // }
-            // $(".gameover").css("display","");
-
             return 0;
-        }
-        if (M_Player.status == 'win') {
+          }
+
+                 if (M_Player.status == 'win') {
             if (current_turn.rank > 0) {
                 console.log("game finished for " + M_Player.color);
 
